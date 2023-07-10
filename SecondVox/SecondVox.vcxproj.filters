@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\rendering">
+      <UniqueIdentifier>{315ce59f-995d-4754-8722-65d3851a00d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\rendering">
+      <UniqueIdentifier>{930fbd58-3976-4f17-803f-b40a3818d2be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\utils">
+      <UniqueIdentifier>{3318d329-6542-47b0-981c-aba3ec2e5eea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\window">
+      <UniqueIdentifier>{a119601c-6ff4-4984-82cc-1e7b50ef9efa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\window">
+      <UniqueIdentifier>{77bcd2bf-5420-4bda-935a-7b0797983c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\world">
+      <UniqueIdentifier>{81828afc-c078-476b-9bfc-246aeaa40a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\world">
+      <UniqueIdentifier>{dadd771b-407d-4ba0-a0a9-dc1663afb699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\utils">
+      <UniqueIdentifier>{e4681e1f-1a4c-48a6-94d8-f1e86221501b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\data">
+      <UniqueIdentifier>{fb262491-8c70-47ae-98d3-4b49bbfad838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\data">
+      <UniqueIdentifier>{12caceb6-cfd6-406f-91bf-0243692f21b2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SecondVox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DClass.cpp">
+      <Filter>소스 파일\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowUtils.cpp">
+      <Filter>소스 파일\window</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldManager.cpp">
+      <Filter>소스 파일\world</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>소스 파일\world</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>소스 파일\world</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Macros.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DClass.h">
+      <Filter>헤더 파일\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WinApiAndDXHeaders.h">
+      <Filter>헤더 파일\window</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowUtils.h">
+      <Filter>헤더 파일\window</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldManager.h">
+      <Filter>헤더 파일\world</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsRandom.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>헤더 파일\world</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>헤더 파일\world</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsSave.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBlock.h">
+      <Filter>헤더 파일\world</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.h">
+      <Filter>헤더 파일\data</Filter>
+    </ClInclude>
+    <ClInclude Include="SIMDTypes.h">
+      <Filter>헤더 파일\data</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
