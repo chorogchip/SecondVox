@@ -2,6 +2,8 @@
 
 #include "UtilsRandom.h"
 
+#include "GameMap.h"
+
 namespace vox::wrd
 {
 
@@ -15,5 +17,6 @@ void MMInit(seed_t seed);
 void MMClear();
 void MMChangeMap(const MapDesc* p_desc);
 void MMSaveMap();
+GameMap &MMGetGameMap();
 
 }

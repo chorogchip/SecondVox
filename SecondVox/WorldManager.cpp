@@ -289,7 +289,7 @@ void WMInit()
     }
 
 END_INIT:
-    MMInit(seed_);
+    MMInit(utils::GenerateSeedBySeed(seed_, utils::EnumSeedsForInit::MAP_MANAGER));
     MapDesc md;
     md.map_id = current_map_;
     md.portal_count = map_infos_[md.map_id].GetPortalCount();

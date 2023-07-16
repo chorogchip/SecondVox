@@ -5,68 +5,50 @@
 #include "Macros.h"
 #include "UtilsRandom.h"
 #include "UtilsSave.h"
+#include "UtilsMath.h"
+#include "DynamicArray.h"
+
 #include "GameBlock.h"
+#include "MapNode.h"
 
 namespace vox::wrd
 {
-
-class GameMap;
-
-struct alignas(16) MapNode
-{
-public:
-    using map_node_t = int16_t;
-    map_node_t childs[8];
-    static int32_t *far_diffs;
-
-    constexpr static map_node_t FLAG_BITS = 0b1111;
-    constexpr static map_node_t DIFF_BITS = (map_node_t)-1 ^ FLAG_BITS;
-    constexpr static map_node_t FLAG_SHR_CNT = 4;
-
-    constexpr static map_node_t FLAG_IS_ALL_FULL = 0b1;
-    constexpr static map_node_t FLAG_IS_SOMEADJ_FULL = 0b10;
-    constexpr static map_node_t FLAG_IS_FAR_PTR = 0b100;
-    constexpr static map_node_t FLAG_IS_LEAF = 0b1000;
-
-    M_FORCE_INLINE MapNode *GetChildWithDiff(map_node_t diff)
-    {
-        return reinterpret_cast<MapNode *>(reinterpret_cast<unsigned char *>(this) + diff);
-    }
-    M_FORCE_INLINE MapNode *GetChild(map_node_t child)
-    {
-        map_node_t diff = child & DIFF_BITS;
-        if (child & FLAG_IS_FAR_PTR)
-            diff = far_diffs[child >> FLAG_SHR_CNT];
-        return this->GetChildWithDiff(diff);
-    }
-    M_FORCE_INLINE static constexpr game_block_t GetBlockID(map_node_t child)
-    {
-        return static_cast<game_block_t>(child);
-    }
-
-};
-static_assert(sizeof(MapNode) == 16);
-static_assert(alignof(MapNode) == 16);
 
 using map_size_t = int32_t;
 
 class GameMap
 {
 private:
-    size_t map_nodes_count_;
-    size_t map_nodes_capacity_;
-    MapNode* map_nodes_;
+    data::DynamicArray<MapNode> map_nodes_;
+    utils::LinearRandomEngine rand_engine_;
+    size_t map_node_recycle_diff_;
+    size_t map_far_diff_recycle_diff_;
 
-    size_t edge_size_;
+    MapNode::map_node_t AddMapNode(MapNode** p_new_node, MapNode *cur_pos);
+    void FreeMapNode(MapNode *node);
+    int32_t AddFarDiff(int32_t data);
+    void FreeFarDiff(int index);
+
 public:
-    M_FORCE_INLINE size_t GetMapNodesCount() const { return map_nodes_count_; }
-    M_FORCE_INLINE const MapNode *GetMapNodeRawPTR() const { return map_nodes_; }
+    static constexpr map_size_t LARGE_BLOCK_CNT_1AXIS = 1024;
+    static constexpr map_size_t LARGE_BLOCK_SZ = 8;
+    static constexpr map_size_t MAP_SZ = LARGE_BLOCK_CNT_1AXIS * LARGE_BLOCK_SZ;
+    static constexpr map_size_t MAP_OCTREE_DEPTH = 13;
+    static constexpr map_size_t CHUNK_SZ = 64 * LARGE_BLOCK_SZ;
+    static constexpr map_size_t CHUNK_SZ_LOG = 6 + 3;
+    static constexpr map_size_t CHUNK_CNT_1AXIS = MAP_SZ / CHUNK_SZ;
+
+    static_assert(1 << MAP_OCTREE_DEPTH == MAP_SZ);
+    static_assert(1 << CHUNK_SZ_LOG == CHUNK_SZ);
+
+    void Init();
+    void Clear();
+    void GenerateMap(seed_t seed);
     void LoadFromFile(FILE* fp);
     void SaveToFile(FILE* fp) const;
-    void Init(size_t edge_size);
-    void Clear();
 
-    void InsertBlock(game_block_t block_id, map_size_t block_sz_log, map_size_t y, map_size_t z, map_size_t x);
+    void SetBlock(EnumBlocks block_id, map_size_t block_sz_log, map_size_t y, map_size_t z, map_size_t x);
+    size_t GenerateBlockInfo(void* dest, map_size_t block_sz_log, map_size_t y, map_size_t z, map_size_t x) const;
 };
 
 

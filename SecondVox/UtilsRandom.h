@@ -1,4 +1,5 @@
 #pragma once
+
 #include <random>
 #include <cstdint>
 #include <chrono>
@@ -26,12 +27,23 @@ public:
         x = a * x + c;
         return x;
     }
+    M_FORCE_INLINE void Seed(seed_t seed) { x = seed; }
     M_FORCE_INLINE static constexpr seed_t min() { return (seed_t)0; }
     M_FORCE_INLINE static constexpr seed_t max() { return (seed_t)-1; }
     M_FORCE_INLINE static constexpr seed_t GenerateInstant(seed_t seed)
     {
         return a * seed + c;
     }
+
+    M_FORCE_INLINE void LoadFromFile(FILE* fp)
+    {
+        fread(&x, sizeof(x), 1, fp);
+    }
+    M_FORCE_INLINE void SaveToFile(FILE* fp) const
+    {
+        fwrite(&x, sizeof(x), 1, fp);
+    }
+
 };
 
 enum class EnumSeedsForInit : seed_t
@@ -45,6 +57,11 @@ M_FORCE_INLINE seed_t GenerateSeedByTime()
 {
     return LinearRandomEngine::GenerateInstant(static_cast<seed_t>(
         std::chrono::system_clock::now().time_since_epoch().count()));
+}
+
+M_FORCE_INLINE seed_t GenerateSeedBySeed(seed_t seed)
+{
+    return LinearRandomEngine::GenerateInstant(seed);
 }
 
 M_FORCE_INLINE seed_t GenerateSeedBySeed(seed_t seed, EnumSeedsForInit addend)

@@ -12,31 +12,22 @@
 namespace vox::wrd
 {
 
-static seed_t seed_;
 static MapDesc map_desc_;
-
-static struct MapInfo
-{
-    seed_t seed;
-
-} map_info_;
-
-static GameMap game_map;
-
-
-
-static void GenerateMap();
+static GameMap game_map_;
+static seed_t seed_;
 
 void MMInit(seed_t seed)
 {
-    seed_ = utils::GenerateSeedBySeed(seed, utils::EnumSeedsForInit::MAP_MANAGER);
+    seed_ = seed;
     map_desc_.map_id = -1;
+
+    game_map_.Init();
 }
 
 void MMClear()
 {
     MMSaveMap();
-    game_map.Clear();
+    game_map_.Clear();
 }
 
 void MMChangeMap(const MapDesc* p_desc)
@@ -48,14 +39,18 @@ void MMChangeMap(const MapDesc* p_desc)
     sprintf_s(buf, "GameData/World/Maps/map%d", map_desc_.map_id);
     FILE* fp;
     fopen_s(&fp, buf, "wb");
+
+    // force to generate map
+    if(fp != nullptr) { fclose(fp); } fp = nullptr;
+
     if (fp == nullptr)
     {
-        GenerateMap();
+        game_map_.GenerateMap(utils::GenerateSeedBySeed(seed_ ^ p_desc->map_id));
         return;
     }
 
-    fread(&map_info_, sizeof(map_info_), 1, fp);
-    game_map.LoadFromFile(fp);
+    //fread(&map_info_, sizeof(map_info_), 1, fp);
+    game_map_.LoadFromFile(fp);
 
     fclose(fp);
 }
@@ -75,16 +70,15 @@ void MMSaveMap()
         return;
     }
 
-    fwrite(&map_info_, sizeof(map_info_), 1, fp);
-    game_map.SaveToFile(fp);
+    //fwrite(&map_info_, sizeof(map_info_), 1, fp);
+    game_map_.SaveToFile(fp);
 
     fclose(fp);
 }
 
-static void GenerateMap()
+GameMap &MMGetGameMap()
 {
-    map_info_.seed = utils::GenerateSeedBySeed(seed_ + (seed_t)map_desc_.map_id, utils::EnumSeedsForInit::ORIGINAL);
-    
+    return game_map_;
 }
 
 }

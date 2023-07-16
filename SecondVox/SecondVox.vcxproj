@@ -108,6 +108,7 @@
       <StringPooling>true</StringPooling>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -129,6 +130,7 @@
       <StringPooling>true</StringPooling>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,27 +140,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockListManager.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="GlobalMemories.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="MapRenderer.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="PerlinGenerator.cpp" />
     <ClCompile Include="SecondVox.cpp" />
+    <ClCompile Include="UtilsMath.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
     <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockListManager.h" />
     <ClInclude Include="D3DClass.h" />
+    <ClInclude Include="d3dx12.h" />
     <ClInclude Include="DynamicArray.h" />
+    <ClInclude Include="EnumDirection.h" />
     <ClInclude Include="GameBlock.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="GlobalMemories.h" />
     <ClInclude Include="Macros.h" />
+    <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MapManager.h" />
+    <ClInclude Include="MapNode.h" />
+    <ClInclude Include="MapRenderer.h" />
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="PerlinGenerator.h" />
     <ClInclude Include="SIMDTypes.h" />
+    <ClInclude Include="StaticStack.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UtilsMath.h" />
     <ClInclude Include="UtilsRandom.h" />
     <ClInclude Include="UtilsSave.h" />
     <ClInclude Include="WinApiAndDXHeaders.h" />
     <ClInclude Include="WindowUtils.h" />
     <ClInclude Include="WorldManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GameData\Shaders\basic_pass.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -252,6 +252,7 @@ void DCOnResize()
     resource_barrier.Transition.pResource = depth_stencil_buffer_.Get();
     resource_barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COMMON;
     resource_barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_DEPTH_WRITE;
+    resource_barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 
     command_list_->ResourceBarrier(1, &resource_barrier);
 

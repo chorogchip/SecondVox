@@ -63,11 +63,29 @@
     <ClCompile Include="GameMap.cpp">
       <Filter>소스 파일\world</Filter>
     </ClCompile>
+    <ClCompile Include="PerlinGenerator.cpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryManager.cpp">
+      <Filter>소스 파일\data</Filter>
+    </ClCompile>
+    <ClCompile Include="MapGenerator.cpp">
+      <Filter>소스 파일\world</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalMemories.cpp">
+      <Filter>소스 파일\data</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilsMath.cpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MapRenderer.cpp">
+      <Filter>소스 파일\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockListManager.cpp">
+      <Filter>소스 파일\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Macros.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="D3DClass.h">
       <Filter>헤더 파일\rendering</Filter>
     </ClInclude>
@@ -104,5 +122,46 @@
     <ClInclude Include="SIMDTypes.h">
       <Filter>헤더 파일\data</Filter>
     </ClInclude>
+    <ClInclude Include="MapNode.h">
+      <Filter>헤더 파일\world</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinGenerator.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryManager.h">
+      <Filter>헤더 파일\data</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGenerator.h">
+      <Filter>헤더 파일\world</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalMemories.h">
+      <Filter>헤더 파일\data</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsMath.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticStack.h">
+      <Filter>헤더 파일\data</Filter>
+    </ClInclude>
+    <ClInclude Include="MapRenderer.h">
+      <Filter>헤더 파일\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockListManager.h">
+      <Filter>헤더 파일\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumDirection.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dx12.h">
+      <Filter>헤더 파일\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GameData\Shaders\basic_pass.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

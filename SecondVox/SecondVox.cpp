@@ -10,6 +10,9 @@
 #include "Timer.h"
 
 #include "WorldManager.h"
+#include "MemoryManager.h"
+#include "GlobalMemories.h"
+#include "BlockListManager.h"
 
 static bool Init();
 static bool InitWindow();
@@ -32,7 +35,7 @@ static void FilterError( HRESULT hr )
         std::cout << "hr : " << hr << std::endl;
         if ( hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET )
         {
-            std::cout << "dx device lost : " << std::endl;  // todo get removed reason
+            std::cout << "dx device lost : " << std::endl;
         }
     }
 }
@@ -42,9 +45,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                        _In_ int       nCmdShow)
 {
     hInst_ = hInstance;
+    
+    vox::mem::MMInit();
+    vox::mem::GMInit();
+
     if ( !Init() ) return 0;
     if ( !OnResize() ) return 0;
 
+    vox::ren::BMInit();
     vox::wrd::WMInit();
 
     MSG msg{};
@@ -72,7 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                     // update
 
                     vox::wrd::WMCheckToChangeMap();
-
+                    vox::ren::BMUpdate();
                 }
                 else goto RENDER_FRAME;
             }
@@ -91,8 +99,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // clear
     vox::wrd::WMClear();
-
+    vox::ren::BMClear();
     vox::ren::DCClear();
+    vox::mem::GMClear();
+    vox::mem::MMClear();
 
     return (int) msg.wParam;
 }
