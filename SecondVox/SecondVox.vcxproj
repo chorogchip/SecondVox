@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
@@ -141,7 +141,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BlockListManager.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="D3DClass.cpp" />
+    <ClCompile Include="d3dUtil.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GlobalMemories.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
@@ -150,14 +152,18 @@
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="PerlinGenerator.cpp" />
     <ClCompile Include="SecondVox.cpp" />
+    <ClCompile Include="UtilsLinearAlgebra.cpp" />
     <ClCompile Include="UtilsMath.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
     <ClCompile Include="WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockListManager.h" />
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="D3DClass.h" />
+    <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="DXMathHeaders.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="EnumDirection.h" />
     <ClInclude Include="GameBlock.h" />
@@ -173,6 +179,8 @@
     <ClInclude Include="SIMDTypes.h" />
     <ClInclude Include="StaticStack.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UploadBuffer.h" />
+    <ClInclude Include="UtilsLinearAlgebra.h" />
     <ClInclude Include="UtilsMath.h" />
     <ClInclude Include="UtilsRandom.h" />
     <ClInclude Include="UtilsSave.h" />
@@ -181,7 +189,30 @@
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="GameData\Shaders\basic_pass.hlsl" />
+    <FxCompile Include="GameData\Shaders\basic_pass_GS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="GameData\Shaders\basic_pass_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="GameData\Shaders\basic_pass_VS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,8 +9,8 @@
 #ifndef ThrowIfFailed
 #ifdef M_DEBUG
 #define ThrowIfFailed(x) { if (FAILED(x)) { throw std::exception(); } }
-#elif
-#define ThrowIfFailed(X)
+#else
+#define ThrowIfFailed(x) { (x); }
 #endif
 #endif
 

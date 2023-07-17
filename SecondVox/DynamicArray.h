@@ -10,9 +10,9 @@
 namespace vox::data
 {
 
-#define MEM_ALLOC(size) (mem::MemAlloc(size))
-#define MEM_REALLOC(data, size) (mem::MemRealloc((data), (size)))
-#define MEM_DELETE(ptr) (mem::MemFree(ptr))
+#define MEM_ALLOC(size) (mem::MMMemAlloc(size))
+#define MEM_REALLOC(data, size) (mem::MMMemRealloc((data), (size)))
+#define MEM_DELETE(ptr) (mem::MMMemFree(ptr))
 
 template<typename T>
 class DynamicArray {

@@ -60,7 +60,7 @@ void BMUpdate()
                 if (!chk.to_update_)
                     continue;
                 chk.to_update_ = false;
-
+                
                 data.Clear();
 
                 const auto size = gm.GenerateBlockInfo(&data, CHNK_SZ_LOG, yy * CHNK_SZ, zz * CHNK_SZ, xx * CHNK_SZ);
@@ -70,7 +70,6 @@ void BMUpdate()
                 // send to GPU
 
             }
-
 
     mem::GMFreeData(mem::EnumGLobalMemories::BLOCK_LIST_GEN);
 }

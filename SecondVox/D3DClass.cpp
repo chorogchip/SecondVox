@@ -33,12 +33,6 @@ static Microsoft::WRL::ComPtr<ID3D12Resource> depth_stencil_buffer_;
 
 static Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> RTV_Heap_;
 static Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> DSV_Heap_;
-static Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> SRV_Heap_;
-
-static Microsoft::WRL::ComPtr<ID3D12RootSignature> root_signature_;
-
-static Microsoft::WRL::ComPtr<ID3DBlob> geometry_shader_, vertex_shader_, pixel_shader_;
-static Microsoft::WRL::ComPtr<ID3D12PipelineState> PSO_;
 
 static D3D12_INPUT_ELEMENT_DESC input_layout_[] =
 {
@@ -96,6 +90,10 @@ bool DCGetTo4xMsaaState()
 {
     return to_4x_MSAA_state;
 }
+UINT DCGet4xMsaaQuality()
+{
+    return num_4x_MSAA_quality;
+}
 void DCSetTo4xMsaaState(bool value)
 {
     if (to_4x_MSAA_state != value)
@@ -113,6 +111,31 @@ bool DCIsPaused()
 void DCSetPaused(bool value)
 {
     is_paused_ = value;
+}
+
+ID3D12Device &DCGetD3DDevice()
+{
+    return *d3d_device_.Get();
+}
+
+ID3D12GraphicsCommandList &DCGetMainCommandList()
+{
+    return *command_list_.Get();
+}
+
+void DCExecuteMainCommandList()
+{
+    ThrowIfFailed(command_list_->Close());
+    ID3D12CommandList* command_lists[] = { command_list_.Get() };
+    command_queue_->ExecuteCommandLists(_countof(command_lists), command_lists);
+
+    FlushCommandQueue();
+}
+
+void DCResetMainCommandList(ID3D12PipelineState* p_PSO)
+{
+    ThrowIfFailed(direct_cmdlist_alloc_->Reset());
+    ThrowIfFailed(command_list_->Reset(direct_cmdlist_alloc_.Get(), p_PSO));
 }
 
 bool DCInit(HWND hWnd, HINSTANCE hInstance)
@@ -307,6 +330,8 @@ void DCDraw()
         1, &cbbv,
         true, &dsv);
 
+    // render
+
     D3D12_RESOURCE_BARRIER resource_barrier2;
     ZeroMemory(&resource_barrier2, sizeof(resource_barrier2));
     resource_barrier2.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
@@ -353,7 +378,7 @@ static void CreateCommandObjects()
         nullptr,
         IID_PPV_ARGS(command_list_.GetAddressOf())));
     
-    command_list_->Close();
+    ThrowIfFailed(command_list_->Close());
 }
 
 static void CreateSwapChain()

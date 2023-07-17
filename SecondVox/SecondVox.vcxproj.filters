@@ -43,6 +43,12 @@
     <Filter Include="헤더 파일\data">
       <UniqueIdentifier>{12caceb6-cfd6-406f-91bf-0243692f21b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\entity">
+      <UniqueIdentifier>{7f75fda4-91d5-42d0-9dd9-5431518a3a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\entity">
+      <UniqueIdentifier>{35221b9d-99f7-4536-af5b-66182716f0fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SecondVox.cpp">
@@ -82,6 +88,15 @@
       <Filter>소스 파일\rendering</Filter>
     </ClCompile>
     <ClCompile Include="BlockListManager.cpp">
+      <Filter>소스 파일\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilsLinearAlgebra.cpp">
+      <Filter>소스 파일\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>소스 파일\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="d3dUtil.cpp">
       <Filter>소스 파일\rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,9 +173,30 @@
     <ClInclude Include="Macros.h">
       <Filter>헤더 파일\utils</Filter>
     </ClInclude>
+    <ClInclude Include="UtilsLinearAlgebra.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>헤더 파일\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="DXMathHeaders.h">
+      <Filter>헤더 파일\window</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadBuffer.h">
+      <Filter>헤더 파일\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dUtil.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="GameData\Shaders\basic_pass.hlsl">
+    <FxCompile Include="GameData\Shaders\basic_pass_GS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="GameData\Shaders\basic_pass_PS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="GameData\Shaders\basic_pass_VS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>

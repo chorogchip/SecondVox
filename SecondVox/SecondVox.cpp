@@ -13,6 +13,7 @@
 #include "MemoryManager.h"
 #include "GlobalMemories.h"
 #include "BlockListManager.h"
+#include "MapRenderer.h"
 
 static bool Init();
 static bool InitWindow();
@@ -52,6 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if ( !Init() ) return 0;
     if ( !OnResize() ) return 0;
 
+    vox::ren::MRInit();
     vox::ren::BMInit();
     vox::wrd::WMInit();
 
@@ -81,6 +83,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
                     vox::wrd::WMCheckToChangeMap();
                     vox::ren::BMUpdate();
+                    vox::ren::MRUpdate();
                 }
                 else goto RENDER_FRAME;
             }
@@ -91,8 +94,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             RENDER_FRAME:
             // render
             const float delta_time = (float)timer.GetElapsedMicroSec().count() / 100000.0f;
-
-            // present
+            
+            vox::ren::MRRender(delta_time);
             vox::ren::DCDraw();
         }
     }
@@ -100,6 +103,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // clear
     vox::wrd::WMClear();
     vox::ren::BMClear();
+    vox::ren::MRClear();
     vox::ren::DCClear();
     vox::mem::GMClear();
     vox::mem::MMClear();
@@ -118,8 +122,6 @@ static bool Init()
     {
         return false;
     }
-
-    vox::ren::DCOnResize();
 
     return true;
 }
@@ -161,6 +163,7 @@ static bool InitWindow()
 static bool OnResize()
 {
     vox::ren::DCOnResize();
+    vox::ren::MROnResize();
     return true;
 }
 
@@ -194,7 +197,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
         {
             if (wParam == SIZE_RESTORED && !is_user_resizing)
             {
-                vox::ren::DCOnResize();
+                OnResize();
             }
         }
         return 0;
@@ -205,7 +208,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 
     case WM_EXITSIZEMOVE:
         is_user_resizing = false;
-        vox::ren::DCOnResize();
+        OnResize();
         return 0;
 
     case WM_DESTROY:

@@ -12,18 +12,18 @@ void MMInit();
 void MMClear();
 
 // it gives (1 << log2_size) memory
-void* MemAllocPow2(size_t log2_size);
-void* MemReallocPow2(void* ptr, size_t log2_size);
-void MemFree(void* ptr);
+void* MMMemAllocPow2(size_t log2_size);
+void* MMMemReallocPow2(void* ptr, size_t log2_size);
+void MMMemFree(void* ptr);
 
 // size 0 is not valid
-M_FORCE_INLINE void* MemAlloc(size_t size)
+M_FORCE_INLINE void* MMMemAlloc(size_t size)
 {
-    return MemAllocPow2(utils::UpperBoundLog2(size));
+    return MMMemAllocPow2(utils::UMUpperBoundLog2(size));
 }
-M_FORCE_INLINE void* MemRealloc(void* ptr, size_t size)
+M_FORCE_INLINE void* MMMemRealloc(void* ptr, size_t size)
 {
-    return MemReallocPow2(ptr, utils::UpperBoundLog2(size));
+    return MMMemReallocPow2(ptr, utils::UMUpperBoundLog2(size));
  }
 
 };

@@ -20,24 +20,27 @@ void MMClear()
         return;
 }
 
-void* MemAllocPow2(size_t log2_size)
+void* MMMemAllocPow2(size_t log2_size)
 {
     if constexpr (!TO_USE_CUSTOM_MEMALLOC)
         return malloc((size_t)1 << log2_size);
 }
-void* MemReallocPow2(void* ptr, size_t log2_size)
+void* MMMemReallocPow2(void* ptr, size_t log2_size)
 {
     if constexpr (!TO_USE_CUSTOM_MEMALLOC)
     {
         const size_t sz = (size_t)1 << log2_size;
+
+        //return realloc(ptr, sz);
+        
         void* new_mem = malloc(sz);
         memcpy(new_mem, ptr, sz >> 1);
         free(ptr);
-        int a = 1;
         return new_mem;
+        
     }
 }
-void MemFree(void* ptr)
+void MMMemFree(void* ptr)
 {
     if constexpr (!TO_USE_CUSTOM_MEMALLOC)
         free(ptr);
